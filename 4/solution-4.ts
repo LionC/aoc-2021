@@ -1,5 +1,5 @@
 import { input } from "../utils.ts";
-import { chunk, findSingle, sumOf } from "../deps.ts";
+import { chunk } from "../deps.ts";
 import "https://cdn.skypack.dev/@tensorflow/tfjs-backend-cpu";
 import * as tf from "https://cdn.skypack.dev/@tensorflow/tfjs-core";
 
@@ -29,9 +29,8 @@ const boardCount = chunked.length;
 
 // Solve
 
-const shape = [boardCount, BOARD_SIZE, BOARD_SIZE];
-const boards = tf.tensor3d(chunked, shape);
-let boardChecks = tf.fill(shape, false);
+const boards = tf.tensor3d(chunked);
+let boardChecks = tf.fill(boards.shape, false);
 
 function hasBoardWon(board: tf.Tensor): boolean {
   const rows = tf.split(board, BOARD_SIZE, 0);
@@ -48,7 +47,7 @@ let winnerCount = 0;
 let firstBoardWon = false;
 
 for (const draw of draws) {
-  const drawTensor = tf.fill(shape, draw);
+  const drawTensor = tf.fill(boards.shape, draw);
   const hits = tf.equal(drawTensor, boards);
   boardChecks = tf.logicalOr(boardChecks, hits);
 
