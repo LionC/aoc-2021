@@ -1,19 +1,19 @@
-import { readLines } from "https://deno.land/std@0.117.0/io/mod.ts"
+import { readLines } from "https://deno.land/std@0.117.0/io/mod.ts";
 
-export const input = await readInput()
+export const input = await readInput();
 
 export async function readInput(): Promise<string[]> {
-    const inputFile = await Deno.open("./input.txt")
-    const lines = readLines(inputFile)
-    const ret: string[] = []
+  const inputFile = await Deno.open("./input.txt");
+  const lines = readLines(inputFile);
+  const ret: string[] = [];
 
-    for await (const line of lines) {
-        ret.push(line)
-    }
+  for await (const line of lines) {
+    ret.push(line);
+  }
 
-    return ret
+  return ret;
 }
 
 export function error(msg: string): never {
-    throw new Error(msg)
+  throw new Error(msg);
 }
