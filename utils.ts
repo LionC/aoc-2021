@@ -17,3 +17,5 @@ export async function readInput(): Promise<string[]> {
 export function error(msg: string): never {
   throw new Error(msg);
 }
+
+export const parseNumber = (raw: string) => parseInt(raw);

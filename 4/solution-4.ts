@@ -1,4 +1,4 @@
-import { input } from "../utils.ts";
+import { input, parseNumber } from "../utils.ts";
 import { chunk } from "../deps.ts";
 import "https://cdn.skypack.dev/@tensorflow/tfjs-backend-cpu";
 import * as tf from "https://cdn.skypack.dev/@tensorflow/tfjs-core";
@@ -8,7 +8,6 @@ await tf.ready();
 // Parse input
 
 const BOARD_SIZE = 5;
-const parseNumber = (raw: string) => parseInt(raw);
 const [drawLine, _, ...boardLines] = input;
 
 const draws = drawLine
