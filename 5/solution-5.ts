@@ -23,17 +23,20 @@ function getPointsBetween(
   { x: x1, y: y1 }: Point,
   { x: x2, y: y2 }: Point,
 ): Line {
-  const slope = (y2 - y1) / (x2 - x1);
-  const isVertical = !Number.isFinite(slope);
+  const xDiff = x2 - x1;
+  const yDiff = y2 - y1;
 
   const vector = {
-    x: isVertical ? 0 : Math.sign(x2 - x1),
-    y: isVertical ? Math.sign(y2 - y1) : Math.sign(x2 - x1) * slope,
+    x: Math.sign(xDiff),
+    y: Math.sign(yDiff),
   };
 
-  const diff = isVertical ? y2 - y1 : x2 - x1;
-  const sign = Math.sign(diff);
-  const steps = Array.from<number>({ length: diff * sign + 1 });
+  const steps = Array.from<number>({
+    length: Math.max(
+      Math.abs(xDiff),
+      Math.abs(yDiff),
+    ) + 1,
+  });
 
   const line = steps.map((_, index) =>
     pointOf(
@@ -42,7 +45,7 @@ function getPointsBetween(
     )
   );
 
-  const diagonal = Math.abs(slope) === 1;
+  const diagonal = xDiff !== 0 && yDiff !== 0;
 
   return { line, diagonal };
 }
@@ -74,13 +77,13 @@ function registerLines(lines: Line[]) {
 }
 
 function getIntersectionCount(): number {
-    return [...pointsToLines.values()]
-      .filter((it) => it.size > 1)
-      .length;
+  return [...pointsToLines.values()]
+    .filter((it) => it.size > 1)
+    .length;
 }
 
-registerLines(straightLines)
-console.log(getIntersectionCount())
+registerLines(straightLines);
+console.log(getIntersectionCount());
 
-registerLines(diagonalLines)
-console.log(getIntersectionCount())
+registerLines(diagonalLines);
+console.log(getIntersectionCount());
