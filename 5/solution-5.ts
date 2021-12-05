@@ -1,6 +1,8 @@
 import { error, input, parseNumber } from "../utils.ts";
 import { mapValues, partition } from "../deps.ts";
 
+const { abs, max, sign } = Math;
+
 type Point = Readonly<{
   x: number;
   y: number;
@@ -27,14 +29,14 @@ function getPointsBetween(
   const yDiff = y2 - y1;
 
   const vector = {
-    x: Math.sign(xDiff),
-    y: Math.sign(yDiff),
+    x: sign(xDiff),
+    y: sign(yDiff),
   };
 
   const steps = Array.from<number>({
-    length: Math.max(
-      Math.abs(xDiff),
-      Math.abs(yDiff),
+    length: max(
+      abs(xDiff),
+      abs(yDiff),
     ) + 1,
   });
 
