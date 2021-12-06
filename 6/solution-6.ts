@@ -13,8 +13,6 @@ let generations = input[0]
         {},
     )
 
-console.dir({ generations })
-
 for (let i = 0; i < DAYS_TO_SIMULATE; i++) {
     const birthed = generations["0"] ?? 0
     delete generations["0"]
